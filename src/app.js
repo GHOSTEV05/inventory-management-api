@@ -3,6 +3,10 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
+const routes = require("./routes");
+const notFound = require("./middlewares/notFound.middleware");
+const errorHandler = require("./middlewares/error.middleware");
+
 const app = express();
 
 // Middlewares
@@ -20,3 +24,8 @@ app.get("/", (req, res) => {
 });
 
 module.exports = app;
+
+app.use("/api/v1", routes);
+
+app.use(notFound);
+app.use(errorHandler);
