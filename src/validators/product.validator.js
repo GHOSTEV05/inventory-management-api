@@ -1,6 +1,6 @@
 const { z } = require("zod");
 
-const createProductSchema = z.object({
+const productSchema = z.object({
   name: z.string().min(2, "Name must have at least 2 characters"),
 
   description: z.string().optional(),
@@ -17,5 +17,6 @@ const createProductSchema = z.object({
 });
 
 module.exports = {
-  createProductSchema,
+  createProductSchema: productSchema,
+  updateProductSchema: productSchema,
 };
