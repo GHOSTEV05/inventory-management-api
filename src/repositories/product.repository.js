@@ -62,6 +62,15 @@ const deleteProduct = (id) => {
   });
 };
 
+const updateStock = (tx, id, stock) => {
+  return tx.product.update({
+    where: { id },
+    data: {
+      stock,
+    },
+  });
+};
+
 module.exports = {
     findProductBySku,
     findProductById,
@@ -70,4 +79,5 @@ module.exports = {
     updateProduct,
     findProductBySkuExceptId,
     deleteProduct,
+    updateStock,
 };

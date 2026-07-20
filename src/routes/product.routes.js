@@ -6,44 +6,44 @@ const authenticate = require("../middlewares/auth.middleware");
 const authorize = require("../middlewares/authorize.middleware");
 
 const {
-  createProduct,
-  getProducts,
-  getProductById,
-  updateProduct,
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
     deleteProduct,
 } = require("../controllers/product.controller");
 
 router.post(
-  "/",
-  authenticate,
-  authorize("ADMIN"),
-  createProduct
+    "/",
+    authenticate,
+    authorize("ADMIN"),
+    createProduct
 );
 
 router.get(
-  "/",
-  authenticate,
-  getProducts
+    "/",
+    authenticate,
+    getProducts
 );
 
 router.get(
-  "/:id",
-  authenticate,
-  getProductById
+    "/:id",
+    authenticate,
+    getProductById
 );
 
 router.put(
-  "/:id",
-  authenticate,
-  authorize("ADMIN"),
-  updateProduct
+    "/:id",
+    authenticate,
+    authorize("ADMIN"),
+    updateProduct
 );
 
 router.delete(
-  "/:id",
-  authenticate,
-  authorize("ADMIN"),
-  deleteProduct
+    "/:id",
+    authenticate,
+    authorize("ADMIN"),
+    deleteProduct
 );
 
 module.exports = router;
