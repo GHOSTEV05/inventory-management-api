@@ -1,0 +1,45 @@
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
+
+const findProductBySku = (sku) => {
+  return prisma.product.findUnique({
+    where: { sku },
+  });
+};
+
+const findProductById = (id) => {
+  return prisma.product.findUnique({
+    where: { id },
+    include: {
+      category: true,
+    },
+  });
+};
+
+const getProducts = () => {
+  return prisma.product.findMany({
+    include: {
+      category: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+};
+
+const createProduct = (data) => {
+  return prisma.product.create({
+    data,
+    include: {
+      category: true,
+    },
+  });
+};
+
+module.exports = {
+  findProductBySku,
+  findProductById,
+  getProducts,
+  createProduct,
+};
