@@ -13,6 +13,38 @@ const {
   deleteCategoryById,
 } = require("../controllers/category.controller");
 
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     summary: Create a new category
+ *     tags:
+ *       - Categories
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Electronics
+ *               description:
+ *                 type: string
+ *                 example: Electronic devices and accessories
+ *     responses:
+ *       201:
+ *         description: Category created successfully
+ *       409:
+ *         description: Category already exists
+ *       401:
+ *         description: Unauthorized
+ */
 router.post(
   "/",
   authenticate,

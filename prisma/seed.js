@@ -1,9 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.role.upsert({
+  const adminRole = await prisma.role.upsert({
     where: { name: "ADMIN" },
     update: {},
     create: {
@@ -19,7 +20,23 @@ async function main() {
     },
   });
 
-  console.log("✅ Roles seeded successfully.");
+  const passwordHash = await bcrypt.hash("Password123", 10);
+
+  await prisma.user.upsert({
+    where: {
+      email: "admin@example.com",
+    },
+    update: {},
+    create: {
+      firstName: "Admin",
+      lastName: "User",
+      email: "admin@example.com",
+      passwordHash,
+      roleId: adminRole.id,
+    },
+  });
+
+  console.log("✅ Database seeded successfully.");
 }
 
 main()
