@@ -10,6 +10,17 @@ const findUserByEmail = async (email) => {
   });
 };
 
+const findUserWithRoleByEmail = async (email) => {
+  return prisma.user.findUnique({
+    where: {
+      email,
+    },
+    include: {
+      role: true,
+    },
+  });
+};
+
 const findRoleByName = async (role) => {
   return prisma.role.findUnique({
     where: {
@@ -26,6 +37,7 @@ const createUser = async (userData) => {
 
 module.exports = {
   findUserByEmail,
+  findUserWithRoleByEmail,
   findRoleByName,
   createUser,
 };
